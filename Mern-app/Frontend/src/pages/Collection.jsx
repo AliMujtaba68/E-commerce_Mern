@@ -7,7 +7,7 @@ import ProductItem from '../components/ProductItem';
 
 const Collection = () => {
 
-    const { products } = useContext(ShopContext);
+    const { products, search, showSearch } = useContext(ShopContext);
     const [showFilter, setShowFilter] = useState(false);
     const [filterProducts, setFilterProducts] = useState([]);
     const [category, setCategory] = useState([]);
@@ -32,33 +32,29 @@ const Collection = () => {
     };
 
     const applyFilter = () => {
-        console.log("Selected Categories:", category);
-        console.log("Selected SubCategories:", subCategory);
+        let productsCopy = products.slice();
 
-        // Copy of products for filtering
-        const filtered = products.filter(item => {
-            // Normalize category and subCategory values to lowercase for comparison
+        if (showSearch && search) {
+            productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()));
+        }
+
+        const filtered = productsCopy.filter(item => {
             const itemCategory = item.category?.toLowerCase();
             const itemSubCategory = item.subCategory?.toLowerCase();
 
             const selectedCategories = category.map(cat => cat.toLowerCase());
             const selectedSubCategories = subCategory.map(subCat => subCat.toLowerCase());
 
-            // Check if product matches any selected category and subcategory
             const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(itemCategory);
             const matchesSubCategory = selectedSubCategories.length === 0 || selectedSubCategories.includes(itemSubCategory);
-
-            // Log matching criteria for each product
-            console.log("Product:", item.name);
-            console.log("Matches Category:", matchesCategory);
-            console.log("Matches SubCategory:", matchesSubCategory);
 
             return matchesCategory && matchesSubCategory;
         });
 
         console.log("Filtered Products:", filtered);
-        setFilterProducts(filtered);
+        setFilterProducts(filtered); // Ensure this is set after both filters
     };
+
 
 
     const sortProduct = () => {
@@ -83,7 +79,7 @@ const Collection = () => {
 
     useEffect(() => {
         applyFilter();
-    }, [category, subCategory]);
+    }, [category, subCategory, search, showSearch]);
 
     useEffect(() => {
         sortProduct();
