@@ -32,7 +32,7 @@ const Navbar = () => {
             </ul>
 
             <div className='flex items-center gap-6'>
-                <img onClick={() => setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt='' />
+                <Link to='/login'><img onClick={() => setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt='' /></Link>
 
                 <div className='group relative'>
                     <img className='w-5 cursor-pointer' src={assets.profile_icon} alt='' />
