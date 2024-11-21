@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";  // Import useNavigate
 import axios from 'axios'
 
+
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
@@ -39,6 +41,16 @@ const ShopContextProvider = (props) => {
         }
 
         setCartItems(cartData);
+
+        if (token) {
+            try {
+                await axios.post(backendUrl + '/api/cart/add', { itemId, size }, { headers: { token } })
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+        }
+
     };
 
     // Get the total number of items in the cart
