@@ -54,6 +54,18 @@ const placeOrderRazorpay = async (req, res) => {
 
 const allOrders = async (req, res) => {
 
+    try {
+
+        const orders = await orderModel.find({})
+        res.json({ success: true, orders })
+
+    } catch (error) {
+
+        console.log(error)
+        res.json({ success: false, message: error.message })
+
+    }
+
 }
 
 // Order Data for User Frontend
@@ -80,6 +92,20 @@ const userOrders = async (req, res) => {
 // update Order Status from Admin panel
 
 const updateStatus = async (req, res) => {
+
+    try {
+
+        const { orderId, status } = req.body
+
+        await orderModel.findByIdAndUpdate(orderId, { status })
+        res.json({ success: true, message: 'Status Updated' })
+
+    } catch (error) {
+
+        console.log(error)
+        res.json({ success: false, message: error.message })
+
+    }
 
 }
 
