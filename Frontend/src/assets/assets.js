@@ -55,8 +55,10 @@ import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
 
 
+
 import logo from './logo.png'
 import hero_img from './hero_img.png'
+import hero_img2 from './hero_img2.jpg'
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
@@ -69,6 +71,7 @@ import star_icon from './star_icon.png'
 import support_img from './support_img.png'
 import menu_icon from './menu_icon.png'
 import about_img from './about_img.png'
+import about_img2 from './about_img2.jpg'
 import contact_img from './contact_img.png'
 import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
@@ -77,6 +80,7 @@ import cross_icon from './cross_icon.png'
 export const assets = {
     logo,
     hero_img,
+    hero_img2,
     cart_icon,
     dropdown_icon,
     exchange_icon,
@@ -89,6 +93,7 @@ export const assets = {
     support_img,
     menu_icon,
     about_img,
+    about_img2,
     contact_img,
     razorpay_logo,
     stripe_logo,
@@ -113,7 +118,7 @@ export const products = [
         name: "Men Round Neck Pure Cotton T-shirt",
         description: "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
         price: 200,
-        image: [p_img2_1,p_img2_2,p_img2_3,p_img2_4],
+        image: [p_img2_1, p_img2_2, p_img2_3, p_img2_4],
         category: "Men",
         subCategory: "Topwear",
         sizes: ["M", "L", "XL"],

@@ -100,13 +100,13 @@ const Collection = () => {
                     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'MEN'} onChange={toggleCategory} />Men
+                            <input className='w-3' type="checkbox" value={'CRICKET'} onChange={toggleCategory} />CRICKET
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'WOMEN'} onChange={toggleCategory} />Women
+                            <input className='w-3' type="checkbox" value={'FOOTBALL'} onChange={toggleCategory} />FOOTBALL
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'KIDS'} onChange={toggleCategory} />Kids
+                            <input className='w-3' type="checkbox" value={'TEENIS'} onChange={toggleCategory} />TEENIS
                         </p>
                     </div>
                 </div>
@@ -116,13 +116,13 @@ const Collection = () => {
                     <p className='mb-3 text-sm font-medium'>TYPE</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Topwear'} onChange={toggleSubCategory} />Topwear
+                            <input className='w-3' type="checkbox" value={'Helmet'} onChange={toggleSubCategory} />Helmet
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory} />Bottomwear
+                            <input className='w-3' type="checkbox" value={'Ball'} onChange={toggleSubCategory} />Ball
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} />Winterwear
+                            <input className='w-3' type="checkbox" value={'Equipment'} onChange={toggleSubCategory} />Equipment
                         </p>
                     </div>
                 </div>
