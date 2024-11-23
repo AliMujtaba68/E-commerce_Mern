@@ -19,7 +19,7 @@ const ShopContextProvider = (props) => {
 
     // Fix: Fetch cart data from backend when token is available
     const fetchCartData = async () => {
-        if (token) { // Only fetch if token is available
+        if (token) {
             try {
                 const response = await axios.post(
                     `${backendUrl}/api/cart/get`,
@@ -61,23 +61,21 @@ const ShopContextProvider = (props) => {
     }, [token]);
 
     const getUserCart = async (token) => {
-
         try {
-
-            const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } })
+            const response = await axios.post(
+                backendUrl + "/api/cart/get",
+                {},
+                { headers: { token } }
+            );
 
             if (response.data.success) {
-                setCartItems(response.data.cartData)
+                setCartItems(response.data.cartData);
             }
-
         } catch (error) {
-
-            console.log(error)
-            toast.error(error.message)
-
+            console.log(error);
+            toast.error(error.message);
         }
-
-    }
+    };
 
     // Fetch product data on app initialization
     useEffect(() => {
@@ -88,12 +86,15 @@ const ShopContextProvider = (props) => {
     useEffect(() => {
         if (!token && localStorage.getItem("token")) {
             setToken(localStorage.getItem("token"));
-            getUserCart(localStorage.getItem("token"))
+            getUserCart(localStorage.getItem("token"));
         }
     }, []);
 
     const addToCart = async (itemId, size) => {
-        if (!size) {
+        const product = products.find((item) => item._id === itemId);
+
+        // Check if product has sizes and validate accordingly
+        if (product.sizes && product.sizes.length > 0 && !size) {
             toast.error("Select Product Size");
             return;
         }
@@ -101,14 +102,26 @@ const ShopContextProvider = (props) => {
         let cartData = structuredClone(cartItems);
 
         if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
+            if (product.sizes && product.sizes.length > 0) {
+                // Handle products with sizes
+                if (cartData[itemId][size]) {
+                    cartData[itemId][size] += 1;
+                } else {
+                    cartData[itemId][size] = 1;
+                }
             } else {
-                cartData[itemId][size] = 1;
+                // Increment quantity for products without sizes
+                cartData[itemId].quantity = (cartData[itemId].quantity || 0) + 1;
             }
         } else {
-            cartData[itemId] = {};
-            cartData[itemId][size] = 1;
+            if (product.sizes && product.sizes.length > 0) {
+                // Add product with size to cart
+                cartData[itemId] = {};
+                cartData[itemId][size] = 1;
+            } else {
+                // Add product without size to cart
+                cartData[itemId] = { quantity: 1 };
+            }
         }
 
         setCartItems(cartData);
@@ -117,7 +130,7 @@ const ShopContextProvider = (props) => {
             try {
                 await axios.post(
                     `${backendUrl}/api/cart/add`,
-                    { itemId, size },
+                    { itemId, size: size || null }, // Send size as null for products without sizes
                     { headers: { token } }
                 );
             } catch (error) {
@@ -154,8 +167,6 @@ const ShopContextProvider = (props) => {
             }
         }
         setCartItems(cartData);
-
-
 
         if (token) {
             try {
