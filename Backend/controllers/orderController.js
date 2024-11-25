@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 
 // Global Variables
 const currency = "pkr"
-const deliveryCharges = 250
+const deliveryCharge = 250
 
 // Gateway Initialize
 
@@ -63,7 +63,7 @@ const placeOrderStripe = async (req, res) => {
             address,
             paymentMethod: "Stripe",
             payment: false,
-            date: Date.now(),
+            date: Date.now()
         }
 
         const newOrder = new orderModel(orderData);
@@ -79,14 +79,14 @@ const placeOrderStripe = async (req, res) => {
             },
             quantity: item.quantity
         }));
-        
+
         line_items.push({
             price_data: {
                 currency: currency,
                 product_data: {
-                    name: 'Deleivery Fee',
+                    name: 'Deleivery Charges',
                 },
-                unit_amount: deliveryCharges * 100,
+                unit_amount: deliveryCharge * 100,
             },
             quantity: 1,
         });
@@ -98,13 +98,13 @@ const placeOrderStripe = async (req, res) => {
             mode: 'payment',
         });
 
-        res.json({success:true,session_url:session.url});
+        res.json({ success: true, session_url: session.url });
 
     } catch (error) {
 
         console.log(error);
-        res.json({success:false,message:error.message });
-        
+        res.json({ success: false, message: error.message });
+
     }
 
 }
@@ -112,8 +112,8 @@ const placeOrderStripe = async (req, res) => {
 // Verify Stripe
 
 const verifyStripe = async (req, res) => {
-    const { orderId, success } = req.query;
-    const { token } = req.headers;
+
+    const { orderId, success, userId } = req.body
 
     try {
         if (!orderId || !success || !token) {
