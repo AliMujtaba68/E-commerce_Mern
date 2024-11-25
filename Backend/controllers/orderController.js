@@ -116,14 +116,6 @@ const verifyStripe = async (req, res) => {
     const { orderId, success, userId } = req.body
 
     try {
-        if (!orderId || !success || !token) {
-            return res.json({ success: false, message: "Invalid request." });
-        }
-
-        // Decode the userId from the token (or fetch from token)
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY); // Assuming JWT for token decoding
-        const userId = decoded.userId;
-
         if (success === 'true') {
             // Mark order as paid
             await orderModel.findByIdAndUpdate(orderId, { payment: true });
