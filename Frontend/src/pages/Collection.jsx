@@ -6,28 +6,17 @@ import Title from '../components/Title';
 import ProductItem from '../components/ProductItem';
 
 const Collection = () => {
-
     const { products, search, showSearch } = useContext(ShopContext);
     const [showFilter, setShowFilter] = useState(false);
     const [filterProducts, setFilterProducts] = useState([]);
     const [category, setCategory] = useState([]);
-    const [subCategory, setSubCategory] = useState([]);
     const [sortType, setSortType] = useState('relavent');
-
 
     const toggleCategory = (e) => {
         if (category.includes(e.target.value)) {
             setCategory(prev => prev.filter(item => item !== e.target.value));
         } else {
             setCategory(prev => [...prev, e.target.value]);
-        }
-    };
-
-    const toggleSubCategory = (e) => {
-        if (subCategory.includes(e.target.value)) {
-            setSubCategory(prev => prev.filter(item => item !== e.target.value));
-        } else {
-            setSubCategory(prev => [...prev, e.target.value]);
         }
     };
 
@@ -40,25 +29,16 @@ const Collection = () => {
 
         const filtered = productsCopy.filter(item => {
             const itemCategory = item.category?.toLowerCase();
-            const itemSubCategory = item.subCategory?.toLowerCase();
-
             const selectedCategories = category.map(cat => cat.toLowerCase());
-            const selectedSubCategories = subCategory.map(subCat => subCat.toLowerCase());
-
             const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(itemCategory);
-            const matchesSubCategory = selectedSubCategories.length === 0 || selectedSubCategories.includes(itemSubCategory);
 
-            return matchesCategory && matchesSubCategory;
+            return matchesCategory;
         });
 
-        console.log("Filtered Products:", filtered);
-        setFilterProducts(filtered); // Ensure this is set after both filters
+        setFilterProducts(filtered);
     };
 
-
-
     const sortProduct = () => {
-
         let fpCopy = filterProducts.slice();
 
         switch (sortType) {
@@ -73,13 +53,12 @@ const Collection = () => {
             default:
                 applyFilter();
                 break;
-
         }
-    }
+    };
 
     useEffect(() => {
         applyFilter();
-    }, [category, subCategory, search, showSearch, products]);
+    }, [category, search, showSearch, products]);
 
     useEffect(() => {
         sortProduct();
@@ -107,22 +86,6 @@ const Collection = () => {
                         </p>
                         <p className='flex gap-2'>
                             <input className='w-3' type="checkbox" value={'KIDS'} onChange={toggleCategory} />KIDS
-                        </p>
-                    </div>
-                </div>
-
-                {/* SubCategory Filter */}
-                <div className={`border border-gray-300 pl-5 py-3 my-5 ${showFilter ? '' : 'hidden sm:block'}`}>
-                    <p className='mb-3 text-sm font-medium'>TYPE</p>
-                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-                        <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Topwear'} onChange={toggleSubCategory} />Topwear
-                        </p>
-                        <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory} />Bottomwear
-                        </p>
-                        <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} />Winterwear
                         </p>
                     </div>
                 </div>
