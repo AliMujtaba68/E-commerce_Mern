@@ -141,7 +141,7 @@ const Add = ({ token }) => {
                         value={price}
                         className="w-full px-3 py-2 sm:w-[120px]"
                         type="Number"
-                        placeholder="25"
+                        placeholder="250"
                     />
                 </div>
             </div>

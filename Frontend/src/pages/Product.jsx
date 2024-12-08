@@ -11,6 +11,7 @@ const Product = () => {
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
     const [size, setSize] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
 
     const fetchProductData = async () => {
         products.map((item) => {
@@ -25,6 +26,12 @@ const Product = () => {
     useEffect(() => {
         fetchProductData();
     }, [productId]);
+
+    const handleAddToCart = (id, size) => {
+        addToCart(id, size);
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000); // Auto-hide after 3 seconds
+    };
 
     return productData ? (
         <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
@@ -79,24 +86,30 @@ const Product = () => {
                             </div>
                         </div>
                     ) : (
-                        // Add a gap when sizes are not available
                         <div className='my-8'></div>
                     )}
 
                     <button
-                        onClick={() => addToCart(productData._id, size)}
+                        onClick={() => handleAddToCart(productData._id, size)}
                         className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'
                     >
                         ADD TO CART
                     </button>
                     <hr className='mt-8 sm:w-4/5' />
                     <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
-                        <p>100% Orignal product.</p>
+                        <p>100% Original product.</p>
                         <p>Cash on delivery is available on this product.</p>
                         <p>Easy return and exchange policy within 7 days.</p>
                     </div>
                 </div>
             </div>
+
+            {/* Pop-Up Notification */}
+            {showPopup && (
+                <div className='fixed top-5 right-5 bg-black text-white p-4 rounded shadow-md z-50'>
+                    Product added to cart!
+                </div>
+            )}
 
             {/* Description and Review Section */}
             <div className='mt-20'>
