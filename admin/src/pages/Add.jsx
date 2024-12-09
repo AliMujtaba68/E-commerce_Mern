@@ -13,7 +13,7 @@ const Add = ({ token }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('Men');
+    const [category, setCategory] = useState('Cricket');
 
     const [bestseller, setBestSeller] = useState(false);
     const [sizes, setSizes] = useState([]);
@@ -128,9 +128,9 @@ const Add = ({ token }) => {
                         value={category}
                         className="w-full px-3 py-2"
                     >
-                        <option value="Men">Men</option>
-                        <option value="Women">Women</option>
-                        <option value="Kids">Kids</option>
+                        <option value="Cricket">Cricket</option>
+                        <option value="Football">Football</option>
+                        <option value="Tennis">Tennis</option>
                     </select>
                 </div>
 
@@ -159,9 +159,8 @@ const Add = ({ token }) => {
                             }
                         >
                             <p
-                                className={`${
-                                    sizes.includes(size) ? 'bg-pink-100' : 'bg-slate-200'
-                                } px-3 py-1 cursor-pointer`}
+                                className={`${sizes.includes(size) ? 'bg-pink-100' : 'bg-slate-200'
+                                    } px-3 py-1 cursor-pointer`}
                             >
                                 {size}
                             </p>

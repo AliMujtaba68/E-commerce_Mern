@@ -79,13 +79,13 @@ const Collection = () => {
                     <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'MEN'} onChange={toggleCategory} />MEN
+                            <input className='w-3' type="checkbox" value={'Cricket'} onChange={toggleCategory} />Cricket
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'WOMEN'} onChange={toggleCategory} />WOMEN
+                            <input className='w-3' type="checkbox" value={'Football'} onChange={toggleCategory} />Football
                         </p>
                         <p className='flex gap-2'>
-                            <input className='w-3' type="checkbox" value={'KIDS'} onChange={toggleCategory} />KIDS
+                            <input className='w-3' type="checkbox" value={'Tennis'} onChange={toggleCategory} />Tennis
                         </p>
                     </div>
                 </div>
